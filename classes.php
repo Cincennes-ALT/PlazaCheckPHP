@@ -11,10 +11,24 @@ class Hatter{
     private $isUpdated;
     private $num;
     private $src;
-    private $videSrc;
+    private $videoSrc;
 
-    function __construct($id, $filename, $author,$authorLink, $source, $sourceLink, $isUpdated, $num, $src, $videSrc){
-        
+    function __construct($id, $filename, $author,$authorLink, $source, $sourceLink, $isUpdated, $num, $src, $videoSrc){
+        $this->id;
+        $this->filename;
+        $this->author;
+        $this->authorLink;
+        $this->source;
+        $this->sourceLink;
+        $this->isUpdated;
+        $this->num;
+        $this->src;
+        $this->videoSrc;
+    }
+
+    public function __toString(){
+        $kimenet = "<p>ID = ".$this->id." gif link = ". $this->src." </p>";
+        return $kimenet;
     }
 }
 
