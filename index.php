@@ -37,10 +37,14 @@ curl_setopt_array($hatterVeletlen, array(
   CURLOPT_CUSTOMREQUEST => 'GET',
 ));
 
-//dal információk
-$dalInfo = curl_init();
+//szótár tömbé konvertálás
+$hatterVeletlenEredmeny = json_decode( curl_exec($hatterVeletlen),true);
+curl_close($hatterVeletlen);
 
-curl_setopt_array($curl, array(
+//dal információk
+$dalNev = curl_init();
+
+curl_setopt_array($dalNev, array(
   CURLOPT_URL => 'https://api.plaza.one/status/track',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
@@ -51,12 +55,45 @@ curl_setopt_array($curl, array(
   CURLOPT_CUSTOMREQUEST => 'GET',
 ));
 
-$delInfoEredmeny = curl_exec($curl);
-curl_close($dalInfo);
+$delInfoEredmeny = curl_exec($dalNev);
+curl_close($dalNev);
 
-//tömbé konvertálás
-$hatterVeletlenEredmeny = json_decode( curl_exec($hatterVeletlen),true);
-curl_close($hatterVeletlen);
+//előző számok
+$elozmenyek = curl_init();
+
+curl_setopt_array($elozmenyek, array(
+  CURLOPT_URL => 'https://api.plaza.one/history/1',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+$elozmenyekEredmeny = curl_exec($elozmenyek);
+curl_close($elozmenyek);
+
+//dal meta
+$dalMeta = curl_init();
+
+curl_setopt_array($dalMeta, array(
+  CURLOPT_URL => 'https://api.plaza.one/songs/10Lh84vdoZueem',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+//szótár tömb
+$dalMetaEredmeny = json_decode( curl_exec($dalMeta));
+curl_close($dalMeta);
+
+//~~~
 
 //Oldal felépítése
 //háttér telfolgozása
@@ -66,5 +103,7 @@ $hatterOsztaly = new Hatter($hatterVeletlenEredmeny["id"], $hatterVeletlenEredme
 //háttér megjelenítve
 echo "<img src='".$hatterOsztaly->hatterGif()."' alt = 'Az oldal háttere'>";
 
+//dal feldolgozása
+var_dump($dalMetaEredmeny);
 
 ?>
