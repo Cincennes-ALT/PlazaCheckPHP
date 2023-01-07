@@ -36,4 +36,29 @@ class Hatter{
     }
 }
 
+class Elozmenyek{
+    private $lejatszva;
+    private $id;
+    private $eloado;
+    private $cim;
+    private $szotar;
+    private $elsoSzamElozmeny;
+    function __construct($szotar){
+        $szotar = json_decode($szotar);
+        //első szám
+        $this->elsoSzamElozmeny = $szotar[0];
+        foreach ($szotar as $key => $value) {
+            $this->lejatszva = $key;
+            $this->id = $key;
+            $this->eloado = $key;
+            $this->cim = $key;
+
+        }
+    }
+    private static function elsoSzamID($elsoSzamElozmeny){
+        
+    }
+
+}
+
 ?>

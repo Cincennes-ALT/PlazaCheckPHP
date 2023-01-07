@@ -72,7 +72,15 @@ curl_setopt_array($elozmenyek, array(
   CURLOPT_CUSTOMREQUEST => 'GET',
 ));
 
-$elozmenyekEredmeny = curl_exec($elozmenyek);
+//echo "<i>".curl_exec($elozmenyek)."</i>";
+$proba = curl_exec($elozmenyek);
+//echo $proba;
+$feldolgoz = substr($proba, 9,-81);
+var_dump($feldolgoz);
+$feldolgoz2 = array( $feldolgoz);
+
+
+$elozmenyekEredmeny =json_decode( curl_exec($elozmenyek));
 curl_close($elozmenyek);
 
 //dal meta
@@ -97,13 +105,14 @@ curl_close($dalMeta);
 
 //Oldal felépítése
 //háttér telfolgozása
-var_dump($hatterVeletlenEredmeny);
 $hatterOsztaly = new Hatter($hatterVeletlenEredmeny["id"], $hatterVeletlenEredmeny["filename"], $hatterVeletlenEredmeny["author"], $hatterVeletlenEredmeny["author_link"], $hatterVeletlenEredmeny["source"], $hatterVeletlenEredmeny["source_link"], $hatterVeletlenEredmeny["is_updated"], $hatterVeletlenEredmeny["num"], $hatterVeletlenEredmeny["src"], $hatterVeletlenEredmeny["video_src"]);
 
 //háttér megjelenítve
-echo "<img src='".$hatterOsztaly->hatterGif()."' alt = 'Az oldal háttere'>";
+//echo "<img src='".$hatterOsztaly->hatterGif()."' alt = 'Az oldal háttere'>";
 
-//dal feldolgozása
-var_dump($dalMetaEredmeny);
+//előzmények
+//var_dump($elozmenyekEredmeny);
+//echo "<br>" . gettype($elozmenyekEredmeny);
+
 
 ?>
