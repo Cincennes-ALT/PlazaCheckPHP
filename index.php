@@ -72,16 +72,25 @@ curl_setopt_array($elozmenyek, array(
   CURLOPT_CUSTOMREQUEST => 'GET',
 ));
 
-//echo "<i>".curl_exec($elozmenyek)."</i>";
-$proba = curl_exec($elozmenyek);
-//echo $proba;
-$feldolgoz = substr($proba, 9,-81);
-var_dump($feldolgoz);
-$feldolgoz2 = array( $feldolgoz);
-
-
-$elozmenyekEredmeny =json_decode( curl_exec($elozmenyek));
+$elozmenyekEredmeny = curl_exec($elozmenyek);
+//levágja a felesleget
+$feldolgoz = substr($elozmenyekEredmeny, 9,-81);
+$elozmenyekEredmeny = json_decode($feldolgoz);
 curl_close($elozmenyek);
+/*
+ * JSON konvertálás után is "stdClass" lesz belőle így egy különleges módszert kell majd használni hogy hozzáférhető legyen az adat
+ * foreach ($elozmenyekEredmeny as $key => $value) {
+    echo "<b>".$key."</b> <i>". gettype($value)." <b>".$value->artist."</b></i>";
+ * }
+ * A $value->artist -evvel lehet az adott objektum elemére hivatkozni.
+ * Elemek amik az ojektben vannak: played_at, id, artist, itle. Példával:
+ * {
+    "played_at": 1673133163,
+    "id": "0w1HaVkWPNTgOE",
+    "artist": "Polygon Dream",
+    "title": "7 t h E l e m e n t"
+  }
+ */
 
 //dal meta
 $dalMeta = curl_init();
@@ -110,9 +119,10 @@ $hatterOsztaly = new Hatter($hatterVeletlenEredmeny["id"], $hatterVeletlenEredme
 //háttér megjelenítve
 //echo "<img src='".$hatterOsztaly->hatterGif()."' alt = 'Az oldal háttere'>";
 
-//előzmények
-//var_dump($elozmenyekEredmeny);
-//echo "<br>" . gettype($elozmenyekEredmeny);
+//eredmények json tömb feldolgozása
+echo '<br>';
+
+}
 
 
 ?>
