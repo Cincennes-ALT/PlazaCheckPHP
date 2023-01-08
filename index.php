@@ -110,6 +110,32 @@ curl_setopt_array($dalMeta, array(
 $dalMetaEredmeny = json_decode( curl_exec($dalMeta));
 curl_close($dalMeta);
 
+//mostani szám ami megy jelenleg
+$szamMost = curl_init();
+curl_setopt_array($szamMost, array(
+  CURLOPT_URL => 'https://api.plaza.one/status',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+$szamMostEredmeny = curl_exec($szamMost);
+$szamMostEredmeny = json_decode($szamMostEredmeny);
+/*
+ * Használat:
+ * mivel úgytűnik hogy ez egy object egy objectben ezért gy kell majd használni a későbbiekben:
+ * echo $szamMostEredmeny->song->title;
+ * Ez a tömb tartalmazza a song, lisaners és az updated_at.$szamMostEredmeny->song->title;
+ * song használatánál tovább kell majd hivatkozni
+ * $(akkori változó név)->song->title;
+ * Amiket a song vissza ad: id, artist, title, album, position, lenght, arwork_src, artworkt_sm_src, rections
+ */
+curl_close($szamMost);
+
 //~~~
 
 //Oldal felépítése
@@ -119,10 +145,6 @@ $hatterOsztaly = new Hatter($hatterVeletlenEredmeny["id"], $hatterVeletlenEredme
 //háttér megjelenítve
 //echo "<img src='".$hatterOsztaly->hatterGif()."' alt = 'Az oldal háttere'>";
 
-//eredmények json tömb feldolgozása
-echo '<br>';
-
-}
 
 
 ?>
