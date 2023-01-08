@@ -61,4 +61,34 @@ class Elozmenyek{
 
 }
 
+// jelenleg játszó szám osztálya
+class SzamMost{
+    private $id;
+    private $artist;
+    private $title;
+    private $album;
+    private $position;
+    private $lenght;
+    private $artwork_src;
+    private $artwork_sm_src;
+    private $reactions;
+    private $listeners;
+
+    function __construct($id, $artist, $title, $album, $position, $length, $artwork_src, $artwork_sm_src, $reactions, $listeners) {
+        $this->id = $id;
+        $this->album = $album;
+        $this->artist = $artist;
+        $this->artwork_sm_src = $artwork_sm_src;
+        $this->artwork_src = $artwork_src;
+        $this->lenght = $length;
+        $this->listeners = $listeners;
+        $this->position = $position;
+        $this->reactions = $reactions;
+        $this->title = $title;
+    }
+    public function __toString() {
+        return "Title: ".$this->title." - Artist: ".$this->artist." - Album".$this->album;
+    }
+}
+
 ?>
