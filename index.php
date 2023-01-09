@@ -124,7 +124,7 @@ curl_setopt_array($szamMost, array(
 ));
 
 $szamMostEredmeny = curl_exec($szamMost);
-$szamMostEredmeny = json_decode($szamMostEredmeny);
+$szME = json_decode($szamMostEredmeny);
 /*
  * Használat:
  * mivel úgytűnik hogy ez egy object egy objectben ezért gy kell majd használni a későbbiekben:
@@ -138,13 +138,34 @@ curl_close($szamMost);
 
 //~~~
 
-//Oldal felépítése
+//Oldal kiegészítők építése
 //háttér telfolgozása
 $hatterOsztaly = new Hatter($hatterVeletlenEredmeny["id"], $hatterVeletlenEredmeny["filename"], $hatterVeletlenEredmeny["author"], $hatterVeletlenEredmeny["author_link"], $hatterVeletlenEredmeny["source"], $hatterVeletlenEredmeny["source_link"], $hatterVeletlenEredmeny["is_updated"], $hatterVeletlenEredmeny["num"], $hatterVeletlenEredmeny["src"], $hatterVeletlenEredmeny["video_src"]);
 
-//háttér megjelenítve
-//echo "<img src='".$hatterOsztaly->hatterGif()."' alt = 'Az oldal háttere'>";
-
-
+//jelenlegi szám feldolgozása
+$jelenlegiSzam = new SzamMost(
+        $szME->song->id,
+        $szME->song->artist,
+        $szME->song->title,
+        $szME->song->album,
+        $szME->song->position,
+        $szME->song->lenght,
+        $szME->song->artwork_src,
+        $szME->song->artwork_sm_src,
+        $szME->reactions,
+        $szME->listeners
+        );
 
 ?>
+
+<!doctype html>
+<html lang="hu">
+    <head>
+        <title>PlazaCheck</title>
+        <link rel="stylesheet" src="style.css">
+    </head>   
+    <body id="oldal">
+        
+        <script src="js.js"></script>
+    </body>
+</html>
