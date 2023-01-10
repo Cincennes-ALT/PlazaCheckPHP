@@ -32,7 +32,11 @@ class Hatter{
     }
 
     public function hatterGif(){
-        return $this->src;
+        $vissza = array(
+            "gif" => $this->src,
+            "vid" => $this->videoSrc
+        );
+        return $vissza;
     }
 }
 
@@ -103,7 +107,7 @@ class SzamMost{
             "react" => $this->reactions,
             "title" =>$this->title
         );
-        return json_encode($vissza);
+        return $vissza;
     }
 }
 
