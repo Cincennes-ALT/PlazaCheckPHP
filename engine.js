@@ -5,11 +5,22 @@
 
 //oldal JavaScriptje
 
-var xhttpKeres = new XMLHttpRequest();
-xhttpKeres.onreadystatechange = function(){
-  if (this.readyState == 4 && this.status == 200){
-      document.getElementById("oldal").innerHTML = "<br>" + this.responseText;
-  }  
-};
-xhttpKeres.open("POST", "index.php", true);
-xhttpKeres.send();
+//nyers adat lekérése
+indul();
+function indul() {
+    var kapcs = new XMLHttpRequest();
+    let url = "index.php?load=now";
+    kapcs.open("GET", url, true);
+    kapcs.onreadystatechange = function () {
+        if (kapcs.readyState === 4 && kapcs.status === 200) {
+            var kapott = kapcs.responseText;
+            feldolgozo(kapott);
+        }
+    };
+    kapcs.send();
+}
+
+//ezzel fogom az oldalom megjeleníteni az adatokat. Tervezem a JQuery-vel
+function feldolgozo(kapott) {
+    console.log(kapott);
+}

@@ -156,6 +156,17 @@ $jelenlegiSzam = new SzamMost(
         $szME->listeners
         );
 
+// JavaScript GET kérelem feldolgozása
+$kerelem = isset( $_GET["load"]);
+switch ($kerelem) {
+    case "now":
+        $vissza = $jelenlegiSzam->toBack();
+        $vissza += $hatterOsztaly->hatterGif();
+        echo json_encode($vissza);
+        break;
+    default:
+        break;
+}
 ?>
 
 <!doctype html>
@@ -166,6 +177,6 @@ $jelenlegiSzam = new SzamMost(
     </head>   
     <body id="oldal">
         
-        <script src="js.js"></script>
+        <script src="engine.js"></script>
     </body>
 </html>
