@@ -103,7 +103,7 @@ class SzamMost{
             "react" => $this->reactions,
             "title" =>$this->title
         );
-        return $vissza;
+        return json_encode($vissza);
     }
 }
 
