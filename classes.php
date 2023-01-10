@@ -89,6 +89,22 @@ class SzamMost{
     public function __toString() {
         return "Title: ".$this->title." - Artist: ".$this->artist." - Album".$this->album;
     }
+    
+    public function toBack() {
+        $vissza = array(
+            "id" => $this->id,
+            "album" => $this->album,
+            "aritst" => $this->artist,
+            "artwork_sm" => $this->artwork_sm_src,
+            "artwork" => $this->artwork_src,
+            "lenght" => $this->lenght,
+            "listen" => $this->listeners,
+            "pos" => $this->position,
+            "react" => $this->reactions,
+            "title" =>$this->title
+        );
+        return $vissza;
+    }
 }
 
 ?>
